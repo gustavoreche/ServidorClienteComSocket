@@ -9,3 +9,12 @@
 # Arquitetura
 [](https://github.com/gustavoreche/ServidorClienteComSocket/blob/master/ArquiteturaClienteServidor.png)
 <img src="https://github.com/gustavoreche/ServidorClienteComSocket/blob/master/ArquiteturaClienteServidor.png">
+
+# Executando o projeto
+- Faça o download do projeto,
+- Abra sua IDE de desenvolvimento(Eclipse, IntelliJ, etc...) e importe o projeto,
+- Execute a classe MainServidor.java, que iniciará o servidor,
+- Execute a classe MainCliente.java, que iniciará o cliente.
+
+# Contribuindo com o projeto
+- Claro, fique à vontade para contribuir com este projeto, abrindo um Pull Request.
