@@ -33,16 +33,23 @@ public class ClienteSocket {
 		}
 	}
 
-	private void digitacaoDoUsuario(Socket clienteSocket) throws IOException {
-		this.digitacaoDoCliente = new Scanner(System.in);
-		while(this.digitacaoDoCliente.hasNextLine()) {
-			this.respostaDoCliente = new PrintStream(clienteSocket.getOutputStream());
-			String usuarioInteragindo = this.digitacaoDoCliente.nextLine();
-			if(usuarioInteragindo.equals("")) {
-				break;
+	private void digitacaoDoUsuario(Socket clienteSocket) {
+		try {
+			this.digitacaoDoCliente = new Scanner(System.in);
+			while(this.digitacaoDoCliente.hasNextLine()) {
+				this.respostaDoCliente = new PrintStream(clienteSocket.getOutputStream());
+				String usuarioInteragindo = this.digitacaoDoCliente.nextLine();
+				if(desejaSairDoSistema(usuarioInteragindo))
+					break;
+				this.respostaDoCliente.println(usuarioInteragindo);
 			}
-			this.respostaDoCliente.println(usuarioInteragindo);
+		} catch (IOException e) {
+			System.err.println("ClienteSocket - digitacaoDoUsuario - Exception: " + e);
 		}
+	}
+
+	private boolean desejaSairDoSistema(String usuarioInteragindo) {
+		return usuarioInteragindo.equals("");
 	}
 
 	private void fechaConexao(Socket clienteSocket) {

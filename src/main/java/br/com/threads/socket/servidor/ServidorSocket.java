@@ -19,24 +19,29 @@ public class ServidorSocket {
 		try {
 			System.out.println("======= Iniciou servidor socket =======");
 			ServerSocket servidorSocket = new ServerSocket(PORTA_SOCKET);
-			this.configuraThreads = Executors.newCachedThreadPool();
+			this.configuraThreads = Executors.newWorkStealingPool();
 			mantemServidorAtivo(servidorSocket);
 		} catch (Exception e) {
 			System.err.println("ServidorSocket - inicia - Exception: " + e);
 		}		
 	}
 
-	private void mantemServidorAtivo(ServerSocket servidorSocket) throws IOException, InterruptedException {
+	private void mantemServidorAtivo(ServerSocket servidorSocket) {
 		while(true) {
 			aceitaNovoCliente(servidorSocket);
 		}
 	}
 
-	private void aceitaNovoCliente(ServerSocket servidorSocket) throws IOException {
-		Socket clienteConectado = servidorSocket.accept();
-		System.out.println("Novo cliente conectado no servidor! Porta: " + clienteConectado.getPort());
-		DistribuidorDeTarefa distribuidorDeTarefa = new DistribuidorDeTarefa(clienteConectado);
-		this.configuraThreads.execute(distribuidorDeTarefa);
+	private void aceitaNovoCliente(ServerSocket servidorSocket) {
+		Socket clienteConectado = null;
+		try {
+			clienteConectado = servidorSocket.accept();
+			System.out.println("Novo cliente conectado no servidor! Porta: " + clienteConectado.getPort());
+			DistribuidorDeTarefa distribuidorDeTarefa = new DistribuidorDeTarefa(clienteConectado);
+			this.configuraThreads.execute(distribuidorDeTarefa);
+		} catch (IOException e) {
+			System.err.println("ServidorSocket - aceitaNovoCliente - Exception: " + e);
+		}
 	}
 
 }
