@@ -31,9 +31,9 @@ public class DistribuidorDeTarefa implements Runnable {
 		try {
 			respostaDoCliente = new Scanner(this.clienteConectado.getInputStream());
 			while(respostaDoCliente.hasNextLine()) {
-				System.out.println(respostaDoCliente.nextLine());
+				System.out.println("Usuário da porta " + this.clienteConectado.getPort() + 
+						": " + respostaDoCliente.nextLine());
 			}
-			System.out.println("----------------------------------");
 		} catch (IOException e) {
 			System.err.println("DistribuidorDeTarefa - leRespostaDoCliente - Exception: " + e);
 		} finally {
@@ -42,8 +42,14 @@ public class DistribuidorDeTarefa implements Runnable {
 	}
 
 	private void fechaConexao(Scanner respostaDoCliente) {
-		if(respostaDoCliente != null)
-			respostaDoCliente.close();
+		try {
+			if(respostaDoCliente != null) {
+				respostaDoCliente.close();
+				this.clienteConectado.close();
+			}			
+		} catch (IOException e) {
+			System.err.println("DistribuidorDeTarefa - fechaConexao - Exception: " + e);
+		}
 	}
 
 }
