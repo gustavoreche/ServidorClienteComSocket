@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class DistribuidorDeTarefa implements Runnable {
+public class DistribuidorDeTarefaDoServidor implements Runnable {
 	
 	private Socket clienteConectado;
 
-	public DistribuidorDeTarefa(Socket clienteConectado) {
+	public DistribuidorDeTarefaDoServidor(Socket clienteConectado) {
 		this.clienteConectado = clienteConectado;
 	}
 	

@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import br.com.threads.service.DistribuidorDeTarefa;
+import br.com.threads.service.DistribuidorDeTarefaDoServidor;
 
 public class ServidorSocket {
 	
@@ -37,7 +37,7 @@ public class ServidorSocket {
 		try {
 			clienteConectado = servidorSocket.accept();
 			System.out.println("Novo cliente conectado no servidor! Porta: " + clienteConectado.getPort());
-			DistribuidorDeTarefa distribuidorDeTarefa = new DistribuidorDeTarefa(clienteConectado);
+			DistribuidorDeTarefaDoServidor distribuidorDeTarefa = new DistribuidorDeTarefaDoServidor(clienteConectado);
 			this.configuraThreads.execute(distribuidorDeTarefa);
 		} catch (IOException e) {
 			System.err.println("ServidorSocket - aceitaNovoCliente - Exception: " + e);
