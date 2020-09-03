@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import br.com.threads.service.DistribuidorDeTarefaDoServidor;
-
 public class ServidorSocket {
 	
 	public static final int PORTA_SOCKET = 12345;
